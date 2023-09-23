@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Develop</title>
+</head>
+<body>
+	<div class="main">
+		<div class="header">
+			<p>Рулетка.bet</p>
+		</div>
+		<div class="center">
+			<div class="row" style="justify-content: center;">
+				<div class="object">0.25</div>
+			</div>
+			<div class="row" style="justify-content: space-evenly;">
+				<div class="object">2</div>
+				<div class="object">0.5</div>
+			</div>
+			<div class="row" style="justify-content: space-around;">
+				<div class="object" style="margin-right: 100px;">1.75</div>
+				<div class="object" style="margin-left: 100px;">0.75</div>
+			</div>
+			<div class="row" style="justify-content: space-evenly;">
+				<div class="object">1.5</div>
+				<div class="object">1</div>
+			</div>
+			<div class="row" style="justify-content: center;">
+				<div class="object">1.25</div>
+			</div>
+		</div>
+		<div class="menu">
+			<div class="mRow">
+				<input type="number" placeholder="Ваша ставка">
+				<p>Ваш Баланс: <span>100</span>₽</p>
+			</div>
+			<div class="mRow">
+				<button>Крутить!</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- styles -->
+	<style type="text/css">
+		html, body {
+			margin: 0 auto;
+			background: linear-gradient(to right bottom, #1c1f1f, #2a2b2b, #3a3b3b, #474747, #5e5e5e) !important;
+			background-attachment: fixed !important;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100%;
+		}
+		.menu input {
+			width: 45%;
+			height: 40px;
+			padding-left: 5%;
+			font-size: 110%;
+		}
+		.menu p {
+			margin-left: 10%;
+		}
+		.menu .mRow {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 1%;
+			color: white;
+			font-size: 140%;
+		}
+		.header {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+		}
+		.header p {
+			font-size: 200%;
+			color: white;
+		}
+		.main {
+			width: 40%;
+			height: 60%;
+			margin-top: -20%;
+		}
+		.center {
+			width: 100%;
+			height: 100%;
+		}
+		.menu {
+			display: block;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			margin-top: 5%;
+		}
+		.menu button {
+			width: 100%;
+			height: 50px;
+			background: grey;
+			color: white;
+			font-size: 125%;
+		}
+		.row {
+			width: 99.7%;
+			height: 20%;
+			display: flex;
+			align-items: center;
+		}
+		.object {
+			width: 75px;
+			height: 75px;
+			background: none;
+			border-radius: 50px;
+			box-shadow: 0 0 10px white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			opacity: 1;
+			color: white;
+			font-size: 150%;
+			border: 3px solid white;
+		}
+	</style>
+	<!-- script -->
+	<script type="text/javascript">
+		let input = document.querySelector('input')
+		let main = document.querySelector('.center')
+		let row = document.querySelector('.row')
+		let object = [
+			main.children[0].children[0],
+			main.children[1].children[1],
+			main.children[2].children[1],
+			main.children[3].children[1],
+			main.children[4].children[0],
+			main.children[3].children[0],
+			main.children[2].children[0],
+			main.children[1].children[0],
+			];
+
+
+		let button = document.querySelector('button')
+	let expBa = document.querySelector('span')
+
+		button.onclick = function() {
+
+			
+
+			let balance = Number(expBa.textContent)
+
+			let stavka = input.value
+
+			if (input.value <= 0) {
+				alert('Нельзя поставить число меньшее, либо равное нулю!')
+			} else if (stavka <= 0) {
+				alert('Нельзя поставить число меньшее, либо равное нулю!')
+			} else if (balance - stavka >= 0 && stavka !== 0) {
+
+				for (let c = 0; c !== object.length; c++) {
+					object[c].style.boxShadow = '0 0 10px white'
+					object[c].style.border = '3px solid white'
+				}
+
+				balance -= stavka;
+				expBa.textContent = balance; 
+
+				let i = 0;	
+
+				let interval = setInterval(() => {
+					let isTrue = Math.floor(Math.random() * 8)
+					if (isTrue !== 7) {
+						if (i === 8) {
+							i = 0
+						}
+						if (i === 0) {
+							object[object.length - 1].style.border = '3px solid white';
+							object[i].style.border = '3px solid orange'
+							object[object.length - 1].style.boxShadow = '0 0 10px white'
+							object[i].style.boxShadow = '0 0 10px orange'
+						} else {
+							object[i - 1].style.border = '3px solid white'
+							object[i].style.border = '3px solid orange'
+							object[i - 1].style.boxShadow = '0 0 10px white'
+							object[i].style.boxShadow = '0 0 10px orange'
+						}
+						if (i >= 8) {
+							i = 0
+						}
+						i++
+					} else {
+						clearInterval(interval)
+						let winCount = 0;
+						let winInterval = setInterval(() => {
+							if (winCount <= 41) {
+								if (winCount % 2 == 0) {
+									object[i - 1].style.boxShadow = '0 0 10px red'
+									object[i - 1].style.border = '3px solid orange'
+								} else {
+									object[i - 1].style.boxShadow = '0 0 10px orange'
+									object[i - 1].style.border = '3px solid red'
+								}
+								winCount++
+							} else {
+								clearInterval(winInterval)
+							}
+						}, 50)
+
+						stavka *= Number(object[i - 1].textContent)
+
+						expBa.textContent = Number(expBa.textContent) + stavka;
+
+					}
+				}, 400)
+			} else {
+				alert('Недостаточно средств на балансе!')
+			}
+		}
+
+		function all() {
+
+			input.value = expBa.textContent
+
+		}
+
+	</script>
+</body>	
+</html>
