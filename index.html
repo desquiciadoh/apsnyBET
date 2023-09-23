@@ -142,80 +142,89 @@
 			];
 
 
+		let flag = true;
+
 		let button = document.querySelector('button')
-	let expBa = document.querySelector('span')
+		let expBa = document.querySelector('span')
 
 		button.onclick = function() {
 
-			
+			if (flag == true) {
 
-			let balance = Number(expBa.textContent)
+				flag = false
 
-			let stavka = input.value
+				let balance = Number(expBa.textContent)
 
-			if (input.value <= 0) {
-				alert('Нельзя поставить число меньшее, либо равное нулю!')
-			} else if (stavka <= 0) {
-				alert('Нельзя поставить число меньшее, либо равное нулю!')
-			} else if (balance - stavka >= 0 && stavka !== 0) {
+				let stavka = input.value
 
-				for (let c = 0; c !== object.length; c++) {
-					object[c].style.boxShadow = '0 0 10px white'
-					object[c].style.border = '3px solid white'
-				}
+				if (input.value <= 0) {
+					alert('Нельзя поставить число меньшее, либо равное нулю!')
+				} else if (stavka <= 0) {
+					alert('Нельзя поставить число меньшее, либо равное нулю!')
+				} else if (balance - stavka >= 0 && stavka !== 0) {
 
-				balance -= stavka;
-				expBa.textContent = balance; 
-
-				let i = 0;	
-
-				let interval = setInterval(() => {
-					let isTrue = Math.floor(Math.random() * 8)
-					if (isTrue !== 7) {
-						if (i === 8) {
-							i = 0
-						}
-						if (i === 0) {
-							object[object.length - 1].style.border = '3px solid white';
-							object[i].style.border = '3px solid orange'
-							object[object.length - 1].style.boxShadow = '0 0 10px white'
-							object[i].style.boxShadow = '0 0 10px orange'
-						} else {
-							object[i - 1].style.border = '3px solid white'
-							object[i].style.border = '3px solid orange'
-							object[i - 1].style.boxShadow = '0 0 10px white'
-							object[i].style.boxShadow = '0 0 10px orange'
-						}
-						if (i >= 8) {
-							i = 0
-						}
-						i++
-					} else {
-						clearInterval(interval)
-						let winCount = 0;
-						let winInterval = setInterval(() => {
-							if (winCount <= 37) {
-								if (winCount % 2 == 0) {
-									object[i - 1].style.boxShadow = '0 0 10px red'
-									object[i - 1].style.border = '3px solid orange'
-								} else {
-									object[i - 1].style.boxShadow = '0 0 10px orange'
-									object[i - 1].style.border = '3px solid red'
-								}
-								winCount++
-							} else {
-								clearInterval(winInterval)
-							}
-						}, 50)
-
-						stavka *= Number(object[i - 1].textContent)
-
-						expBa.textContent = Number(expBa.textContent) + stavka;
-
+					for (let c = 0; c !== object.length; c++) {
+						object[c].style.boxShadow = '0 0 10px white'
+						object[c].style.border = '3px solid white'
 					}
-				}, 400)
+
+					balance -= stavka;
+					expBa.textContent = balance; 
+
+					let i = 0;	
+
+					let interval = setInterval(() => {
+						let isTrue = Math.floor(Math.random() * 8)
+						if (isTrue !== 7) {
+							if (i === 8) {
+								i = 0
+							}
+							if (i === 0) {
+								object[object.length - 1].style.border = '3px solid white';
+								object[i].style.border = '3px solid orange'
+								object[object.length - 1].style.boxShadow = '0 0 10px white'
+								object[i].style.boxShadow = '0 0 10px orange'
+							} else {
+								object[i - 1].style.border = '3px solid white'
+								object[i].style.border = '3px solid orange'
+								object[i - 1].style.boxShadow = '0 0 10px white'
+								object[i].style.boxShadow = '0 0 10px orange'
+							}
+							if (i >= 8) {
+								i = 0
+							}
+							i++
+						} else {
+							clearInterval(interval)
+							let winCount = 0;
+							let winInterval = setInterval(() => {
+								if (winCount <= 37) {
+									if (winCount % 2 == 0) {
+										object[i - 1].style.boxShadow = '0 0 10px red'
+										object[i - 1].style.border = '3px solid orange'
+									} else {
+										object[i - 1].style.boxShadow = '0 0 10px orange'
+										object[i - 1].style.border = '3px solid red'
+									}
+									winCount++
+								} else {
+									clearInterval(winInterval)
+								}
+							}, 50)
+
+							stavka *= Number(object[i - 1].textContent)
+
+							expBa.textContent = Number(expBa.textContent) + stavka;
+
+							flag = true;
+
+						}
+					}, 400)
+				} else {
+					alert('Недостаточно средств на балансе!')
+				}
 			} else {
-				alert('Недостаточно средств на балансе!')
+				console.log(false)
 			}
 		}
 
