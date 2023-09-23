@@ -194,7 +194,7 @@
 						clearInterval(interval)
 						let winCount = 0;
 						let winInterval = setInterval(() => {
-							if (winCount <= 41) {
+							if (winCount <= 37) {
 								if (winCount % 2 == 0) {
 									object[i - 1].style.boxShadow = '0 0 10px red'
 									object[i - 1].style.border = '3px solid orange'
@@ -217,12 +217,6 @@
 			} else {
 				alert('Недостаточно средств на балансе!')
 			}
-		}
-
-		function all() {
-
-			input.value = expBa.textContent
-
 		}
 
 	</script>
